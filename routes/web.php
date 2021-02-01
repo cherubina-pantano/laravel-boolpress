@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ *  HOMEPAGE
+ **/
+
+Route::get('/', 'HomeController@index')->name('home');
+
+/**
+ *   ROTTE PER IL LOGIN/REGISTRAZIONE
+ **/
+
+Auth::routes();
+
+/**
+ *  ROTTE PAGINE PER UTENTI LOGGATI
+ **/
+
+ Route::prefix('admin')
+    ->namespace('Admin')
+    ->name('admin.')
+    ->middleware('auth')
+    ->group(function() {
+        //Home Admin
+        Route::get('/', 'HomeController@index')->name('home');
+
+        //Rotte POST --- CRUD
+    });
+
+//Route::get('/home', 'HomeController@index')->name('home');
