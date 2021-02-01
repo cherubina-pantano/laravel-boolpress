@@ -39,6 +39,7 @@ Auth::routes();
         Route::get('/', 'HomeController@index')->name('home');
 
         //Rotte POST --- CRUD
+        Route::resource('posts', 'PostController');
     });
 
 //Route::get('/home', 'HomeController@index')->name('home');
